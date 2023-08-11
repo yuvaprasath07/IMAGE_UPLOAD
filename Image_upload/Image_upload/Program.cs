@@ -1,6 +1,16 @@
+
+using Image_upload.Model;
+using Image_upload.Service;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var connectionString = builder.Configuration.GetConnectionString("image");
+builder.Services.AddDbContextPool<FileDbContext>(option => option.UseSqlServer(connectionString));
+
+builder.Services.AddTransient<Imanageimage, ManageImage>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
